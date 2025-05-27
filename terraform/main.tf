@@ -193,12 +193,12 @@ resource "aws_api_gateway_rest_api" "ecommerce_api" {
 
 # Lambda for user registration
 resource "aws_lambda_function" "user_register" {
-  filename         = "../lambdas/user/register.zip"
+  filename         = "register.zip"
   function_name    = "user-register"
   handler          = "register.handler"
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda-exec-role.arn
-  source_code_hash = filebase64sha256("../lambdas/user/register.zip")
+  source_code_hash = filebase64sha256("register.zip")
   environment {
     variables = {
       USERS_TABLE = aws_dynamodb_table.users.name
@@ -210,12 +210,12 @@ resource "aws_lambda_function" "user_register" {
 
 # Lambda for confirming user registration
 resource "aws_lambda_function" "user_confirm" {
-  filename         = "../lambdas/user/confirm.zip"
+  filename         = "confirm.zip"
   function_name    = "user-confirm"
   handler          = "confirm.handler"
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda-exec-role.arn
-  source_code_hash = filebase64sha256("../lambdas/user/confirm.zip")
+  source_code_hash = filebase64sha256("confirm.zip")
   environment {
     variables = {
       USERS_TABLE = aws_dynamodb_table.users.name
@@ -227,12 +227,12 @@ resource "aws_lambda_function" "user_confirm" {
 
 # Lambda for user login
 resource "aws_lambda_function" "user_login" {
-  filename         = "../lambdas/user/login.zip"
+  filename         = "login.zip"
   function_name    = "user-login"
   handler          = "login.handler"
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda-exec-role.arn
-  source_code_hash = filebase64sha256("../lambdas/user/login.zip")
+  source_code_hash = filebase64sha256("login.zip")
   environment {
     variables = {
       USERS_TABLE = aws_dynamodb_table.users.name
@@ -247,12 +247,12 @@ resource "aws_lambda_function" "user_login" {
 
 # Lambda for getting products
 resource "aws_lambda_function" "get_products" {
-  filename         = "../lambdas/product/get.zip"
+  filename         = "get.zip"
   function_name    = "product-get"
   handler          = "get.handler"
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda-exec-role.arn
-  source_code_hash = filebase64sha256("../lambdas/product/get.zip")
+  source_code_hash = filebase64sha256("get.zip")
   environment {
     variables = {
       PRODUCTS_TABLE = aws_dynamodb_table.products.name
@@ -348,12 +348,12 @@ resource "aws_lambda_permission" "allow_api_gateway_login_user" {
 
 # Lambda for create products
 resource "aws_lambda_function" "post_products" {
-  filename         = "../lambdas/product/post.zip"
+  filename         = "post.zip"
   function_name    = "product-post"
   handler          = "post.handler"
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda-exec-role.arn
-  source_code_hash = filebase64sha256("../lambdas/product/post.zip")
+  source_code_hash = filebase64sha256("post.zip")
   environment {
     variables = {
       PRODUCTS_TABLE = aws_dynamodb_table.products.name
@@ -366,12 +366,12 @@ resource "aws_lambda_function" "post_products" {
 }
 # Lambda for validate products
 resource "aws_lambda_function" "products_validate" {
-  filename         = "../lambdas/product/validate.zip"
+  filename         = "validate.zip"
   function_name    = "product-validate"
   handler          = "validate.handler"
   runtime          = "nodejs18.x"
   role             = aws_iam_role.lambda-exec-role.arn
-  source_code_hash = filebase64sha256("../lambdas/product/validate.zip")
+  source_code_hash = filebase64sha256("validate.zip")
   environment {
     variables = {
       PRODUCTS_TABLE = aws_dynamodb_table.products.name

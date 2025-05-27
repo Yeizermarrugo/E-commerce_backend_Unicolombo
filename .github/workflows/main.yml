@@ -16,36 +16,28 @@ jobs:
                   node-version: "18"
 
             # Instalar dependencias y crear ZIPS para cada Lambda
-            - name: Install dependencies and build User Lambdas
+            - name: Build User Lambdas
               run: |
                   cd lambdas/user
-                  npm install         # Si tienes package.json, si no, omite esto
-                  zip -r register.zip register.js node_modules/
-                  zip -r confirm.zip confirm.js node_modules/
-                  zip -r login.zip login.js node_modules/
-                  cd ../../..
-
-            - name: Install & Package Product Lambdas
+                   npm install || true                 # si hay package.json
+                   zip -r register.zip register.js node_modules/
+                   zip -r confirm.zip confirm.js node_modules/
+                   zip -r login.zip login.js node_modules/
+                   mv register.zip ../../terraform/
+                   mv confirm.zip ../../terraform/
+                   mv login.zip ../../terraform/
+            - name: Build Product Lambdas
               run: |
                   cd lambdas/product
-                  npm install
+                  npm install || true                 # si hay package.json
                   zip -r get.zip get.js node_modules/
-                  zip -r post.zip post.js node_modules/
                   zip -r validate.zip validate.js node_modules/
-                  cd ../../..
-
-            - name: Move Lambda ZIPs to terraform directory
-              run: |
-                  mv lambdas/user/register.zip terraform/
-                  mv lambdas/user/confirm.zip terraform/
-                  mv lambdas/user/login.zip terraform/
-                  mv lambdas/product/get.zip terraform/
-                  mv lambdas/product/post.zip terraform/
-                  mv lambdas/product/validate.zip terraform/
+                  mv get.zip ../../terraform/
+                  mv validate.zip ../../terraform/
 
             # Terraform Init/Plan/Apply
             - name: Setup Terraform
-              uses: hashicorp/setup-terraform@v2
+              uses: hashicorp/setup-terraform@v3
 
             - name: Terraform Init
               run: terraform init
