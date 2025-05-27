@@ -218,7 +218,3 @@ El token es un JWT que debe incluirse en los headers para acceder a los endpoint
 - [Terraform Docs](https://developer.hashicorp.com/terraform)
 - [AWS Provider Terraform Registry](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 - [Video guía AWS Lambda + Terraform](https://www.youtube.com/watch?v=gpXmaDwfQ50)
-
----
-
-¡Éxitos implementando y desplegando tu backend serverless!
