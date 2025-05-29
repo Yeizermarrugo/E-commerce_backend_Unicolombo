@@ -11,7 +11,11 @@ module.exports.handler = async (event) => {
 			})
 			.promise();
 
-		const products = result.Items.map((item) => ({ ...item }));
+		//exclude userId
+		const products = result.Items.map((product) => {
+			const { userId, ...productWithoutUserId } = product;
+			return productWithoutUserId;
+		});
 
 		return {
 			statusCode: 200,
