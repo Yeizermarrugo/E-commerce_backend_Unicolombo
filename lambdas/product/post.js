@@ -9,12 +9,6 @@ const VALIDATE_LAMBDA_NAME = process.env.VALIDATE_LAMBDA_NAME;
 
 console.log("VALIDATE_LAMBDA_NAME: ", VALIDATE_LAMBDA_NAME);
 
-/**
- * Lambda handler for creating a new product.
- * - Authenticates the request using Cognito JWT.
- * - Validates if the product already exists (invokes validate Lambda).
- * - Inserts the product into DynamoDB if it does not exist.
- */
 exports.handler = async (event) => {
 	// Extrae y valida el token de autorización
 	console.log("event: ", JSON.stringify(event));
@@ -57,6 +51,7 @@ exports.handler = async (event) => {
 			};
 		}
 	}
+	console.log("body", JSON.stringify(body));
 	const { name, brand, price, stock, description } = body || {};
 
 	if (!name || !brand || !price) {
@@ -115,7 +110,7 @@ exports.handler = async (event) => {
 		price,
 		stock,
 		description,
-		userId: event.requestContext.authorizer.claims.sub,
+		userId: user.sub,
 		createdAt: timestamp,
 		updatedAt: timestamp
 	};
